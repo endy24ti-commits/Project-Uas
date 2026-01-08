@@ -3,15 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function login()
     {
-        //
+        return view('pages.login');
     }
 
     /**
@@ -27,7 +28,16 @@ class AuthController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $credentials = $request->only('username', 'password');
+
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+            return redirect('/dashboard');
+        }
+
+        return back()->withErrors([
+            'username' => 'Username atau password salah'
+        ]);
     }
 
     /**
@@ -57,24 +67,12 @@ class AuthController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request)
     {
-        //
-    }
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
 
-     /**
-     * Tampilkan halaman login
-     */
-    public function login()
-    {
-        return view('pages.login');
-    }
-
-    /**
-     * Tampilkan halaman register
-     */
-    public function register()
-    {
-        return view('pages.register');
+        return redirect('/login');
     }
 }

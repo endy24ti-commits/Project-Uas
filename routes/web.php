@@ -1,8 +1,6 @@
 <?php
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\BookingController;
+
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\AlatController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -13,18 +11,15 @@ Route::get('/', function () {
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::get('/register', [AuthController::class, 'register']);
 
-Route::middleware(['auth'])->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index']);
-    Route::resource('booking', BookingController::class);
+Route::get('dashboard', function () {
+    return view('guest.dashboard');
 });
 
-Route::middleware(['auth','role:admin'])->group(function () {
-    Route::resource('/alat', AlatController::class);
-});
 
-Route::middleware(['auth'])->group(function () {
-    Route::resource('booking', BookingController::class);
-});
+// LOGOUT
+Route::post('/logout', [AuthController::class, 'destroy'])->name('logout');
 
-Route::post('/booking', [DashboardController::class, 'store'])
-    ->middleware('auth');
+Route::get('/register', [AuthController::class, 'register'])->name('register');
+Route::get('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/login', [AuthController::class, 'store'])->name('login.store');
+
