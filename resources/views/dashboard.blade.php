@@ -58,7 +58,7 @@
         </li>
 
         <li>
-          <a href="forms.blade.php">
+          <a href="{{ route('booking.index') }}">
             <i class="zmdi zmdi-format-list-bulleted"></i> <span>Booking</span>
           </a>
         </li>
