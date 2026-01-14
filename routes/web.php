@@ -1,13 +1,19 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+<<<<<<< HEAD
 use App\Http\Controllers\UserController;
+=======
+use App\Http\Controllers\AlatController;
+
+>>>>>>> 40eb93f1a582631460f8955ba38b1da2accace08
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('dashboard');
 });
 
+<<<<<<< HEAD
 use App\Http\Controllers\DashboardController;
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
@@ -20,3 +26,14 @@ Route::get('/admin/profile', [AdminController::class, 'profile'])->name('admin.p
 
 
 Route::resource('user', UserController::class);
+=======
+Route::get('/login', function () {
+    return view('Auth.login');
+});
+
+Route::get('/register', function () {
+    return view('Auth.register');
+});
+
+Route::resource('alat', AlatController::class);
+>>>>>>> 40eb93f1a582631460f8955ba38b1da2accace08
