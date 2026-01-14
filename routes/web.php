@@ -8,18 +8,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/login', [AuthController::class, 'login'])->name('login');
-Route::get('/register', [AuthController::class, 'register']);
-
 Route::get('dashboard', function () {
-    return view('guest.dashboard');
+    return view('admin.dashboard');
 });
-
-
-// LOGOUT
-Route::post('/logout', [AuthController::class, 'destroy'])->name('logout');
-
-Route::get('/register', [AuthController::class, 'register'])->name('register');
-Route::get('/login', [AuthController::class, 'login'])->name('login');
-Route::post('/login', [AuthController::class, 'store'])->name('login.store');
-
+Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+Route::get('/admin/forms', [AdminController::class, 'forms'])->name('admin.forms');
+Route::get('/admin/tables', [AdminController::class, 'tables'])->name('admin.tables');
+Route::get('/admin/calendar', [AdminController::class, 'calendar'])->name('admin.calendar');
+Route::get('/admin/profile', [AdminController::class, 'profile'])->name('admin.profile');
