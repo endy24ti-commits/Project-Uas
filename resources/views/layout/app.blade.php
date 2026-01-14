@@ -6,25 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <title>@yield('title','Dashboard')</title>
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 40eb93f1a582631460f8955ba38b1da2accace08
     <!-- loader -->
     <link href="{{ asset('assets/css/pace.min.css') }}" rel="stylesheet"/>
     <script src="{{ asset('assets/js/pace.min.js') }}"></script>
 
-<<<<<<< HEAD
     <!-- favicon -->
     <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}" type="image/x-icon">
 
-=======
-
     <!-- favicon -->
     <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}" type="image/x-icon">
 
-
->>>>>>> 40eb93f1a582631460f8955ba38b1da2accace08
     <!-- CSS -->
     <link href="{{ asset('assets/plugins/vectormap/jquery-jvectormap-2.0.2.css') }}" rel="stylesheet"/>
     <link href="{{ asset('assets/plugins/simplebar/css/simplebar.css') }}" rel="stylesheet"/>
@@ -34,15 +25,12 @@
     <link href="{{ asset('assets/css/sidebar-menu.css') }}" rel="stylesheet"/>
     <link href="{{ asset('assets/css/app-style.css') }}" rel="stylesheet"/>
 
-<<<<<<< HEAD
     @stack('css')
 </head>
 
 <body class="bg-theme bg-theme1">
 
 <div id="wrapper">
-
-=======
 
     @stack('css')
 </head>
@@ -53,8 +41,6 @@
 
 <div id="wrapper">
 
-
->>>>>>> 40eb93f1a582631460f8955ba38b1da2accace08
     <!-- SIDEBAR -->
     <div id="sidebar-wrapper" data-simplebar data-simplebar-auto-hide="true">
         <div class="brand-logo">
@@ -64,53 +50,33 @@
             </a>
         </div>
 
-<<<<<<< HEAD
-        <ul class="sidebar-menu do-nicescrol">
-            <li class="sidebar-header">Sidebar</li>
-
-=======
-
         <ul class="sidebar-menu do-nicescrol">
             <li class="sidebar-header">Sidebar</li>
 
 
->>>>>>> 40eb93f1a582631460f8955ba38b1da2accace08
+        <ul class="sidebar-menu do-nicescrol">
+            <li class="sidebar-header">Sidebar</li>
+
             <li>
                 <a href="{{ url('/dashboard') }}">
                     <i class="zmdi zmdi-view-dashboard"></i> <span>Dashboard</span>
                 </a>
             </li>
 
-<<<<<<< HEAD
             <li>
                 <a href="{{ url('/alat') }}">
-=======
-
-            <li>
-                <a href="{{ route('alat.index') }}">
->>>>>>> 40eb93f1a582631460f8955ba38b1da2accace08
                     <i class="zmdi zmdi-invert-colors"></i> <span>Alat</span>
                 </a>
             </li>
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 40eb93f1a582631460f8955ba38b1da2accace08
             <li>
                 <a href="{{ url('/booking') }}">
                     <i class="zmdi zmdi-format-list-bulleted"></i> <span>Booking</span>
                 </a>
             </li>
 
-<<<<<<< HEAD
             <li>
-                <a href="{{ route('user.index') }}">
-=======
-
-            <li>
-                <a href="">
->>>>>>> 40eb93f1a582631460f8955ba38b1da2accace08
+                <a href="{{ url('/user') }}">
                     <i class="zmdi zmdi-face"></i> <span>User</span>
                 </a>
             </li>
@@ -118,10 +84,6 @@
     </div>
     <!-- END SIDEBAR -->
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 40eb93f1a582631460f8955ba38b1da2accace08
     <!-- TOPBAR -->
     <header class="topbar-nav">
         <nav class="navbar navbar-expand fixed-top">
@@ -139,10 +101,6 @@
                 </li>
             </ul>
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 40eb93f1a582631460f8955ba38b1da2accace08
             <ul class="navbar-nav align-items-center right-nav-link">
                 <li class="nav-item">
                     <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" data-toggle="dropdown">
@@ -173,15 +131,10 @@
     </header>
     <!-- END TOPBAR -->
 
-<<<<<<< HEAD
     <div class="clearfix"></div>
-
-=======
 
     <div class="clearfix"></div>
 
-
->>>>>>> 40eb93f1a582631460f8955ba38b1da2accace08
     <!-- CONTENT -->
     <div class="content-wrapper">
         <div class="container-fluid">
@@ -190,10 +143,6 @@
     </div>
     <!-- END CONTENT -->
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 40eb93f1a582631460f8955ba38b1da2accace08
     <!-- FOOTER -->
     <footer class="footer">
         <div class="container text-center">
@@ -201,15 +150,10 @@
         </div>
     </footer>
 
-<<<<<<< HEAD
 </div>
-
-=======
 
 </div>
 
-
->>>>>>> 40eb93f1a582631460f8955ba38b1da2accace08
 <!-- JS -->
 <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
 <script src="{{ asset('assets/js/popper.min.js') }}"></script>
@@ -220,16 +164,10 @@
 <script src="{{ asset('assets/js/app-script.js') }}"></script>
 <script src="{{ asset('assets/plugins/Chart.js/Chart.min.js') }}"></script>
 
-<<<<<<< HEAD
-@stack('js')
-</body>
-</html>
-=======
-
 @stack('js')
 </body>
 </html>
 
-
-
->>>>>>> 40eb93f1a582631460f8955ba38b1da2accace08
+@stack('js')
+</body>
+</html>
