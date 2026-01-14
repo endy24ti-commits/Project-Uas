@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AlatController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -8,8 +9,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-Route::get('/admin/forms', [AdminController::class, 'forms'])->name('admin.forms');
-Route::get('/admin/tables', [AdminController::class, 'tables'])->name('admin.tables');
-Route::get('/admin/calendar', [AdminController::class, 'calendar'])->name('admin.calendar');
-Route::get('/admin/profile', [AdminController::class, 'profile'])->name('admin.profile');
+Route::get('/login', function () {
+    return view('Auth.login');
+});
+
+Route::get('/register', function () {
+    return view('Auth.register');
+});
+
+Route::resource('alat', AlatController::class);
