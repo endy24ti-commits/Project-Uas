@@ -1,18 +1,49 @@
-<form action="{{ route('alat.store') }}" method="POST">
-@csrf
+@extends('layout.app')
 
-<input type="text" name="nama_alat" placeholder="Nama Alat">
+@section('title', 'Tambah Alat')
 
-<input type="text" name="kategori" placeholder="Kategori">
+@section('content')
+<div class="row">
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-header bg-light">
+                <h5 class="mb-0 text-secondary">Tambah Alat</h5>
+            </div>
 
-<select name="status">
-  <option value="Tersedia">Tersedia</option>
-  <option value="Dipinjam">Dipinjam</option>
-</select>
+            <div class="card-body">
+                <form action="{{ route('alat.store') }}" method="POST">
+                    @csrf
 
-<input type="number" name="waktu_sewa" placeholder="Waktu Sewa (hari)">
+                    <div class="form-group">
+                        <label>Nama Alat</label>
+                        <input type="text" name="nama_alat" class="form-control" required>
+                    </div>
 
-<input type="number" name="harga_sewa" placeholder="Harga Sewa">
+                    <div class="form-group">
+                        <label>Harga</label>
+                        <input type="number" name="harga" class="form-control" required>
+                    </div>
 
-<button type="submit">Simpan</button>
-</form>
+                    {{-- 🔴 DITAMBAHKAN --}}
+                    <div class="form-group">
+                        <label>Link Foto Produk</label>
+                        <input type="text"
+                               name="foto"
+                               class="form-control"
+                               placeholder="https://example.com/foto.jpg">
+                    </div>
+                    {{-- 🔴 END --}}
+
+                    <button class="btn btn-primary btn-sm">
+                        <i class="zmdi zmdi-save"></i> Simpan
+                    </button>
+
+                    <a href="{{ route('alat.index') }}" class="btn btn-secondary btn-sm">
+                        Kembali
+                    </a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection

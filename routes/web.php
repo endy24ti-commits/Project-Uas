@@ -1,8 +1,7 @@
 <?php
 
-use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
-
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AlatController;
 use App\Http\Controllers\BookingController;
 use Illuminate\Support\Facades\Route;
@@ -10,7 +9,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('dashboard');
 });
-use App\Http\Controllers\DashboardController;
+
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 Route::get('/login', function () {

@@ -21,39 +21,43 @@ class AlatController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama_alat'   => 'required',
-            'kategori'    => 'required',
-            'status'      => 'required',
-            'waktu_sewa'  => 'required|integer',
-            'harga_sewa'  => 'required|integer',
+            'nama_alat' => 'required|string|max:100',
+            'harga'     => 'required|numeric|min:0',
+            'foto'      => 'nullable|string|max:255', // 🔴 DITAMBAHKAN
         ]);
 
-        Alat::create($request->all());
+        Alat::create([
+            'nama_alat' => $request->nama_alat,
+            'harga'     => $request->harga,
+            'foto'      => $request->foto, // 🔴 DITAMBAHKAN
+        ]);
 
-        return redirect()->route('alat.index')
-            ->with('success', 'Data alat berhasil ditambahkan');
+        return redirect()
+            ->route('alat.index')
+            ->with('success', 'Data berhasil disimpan');
     }
 
-    public function edit($id)
+    public function edit(Alat $alat)
     {
-        $alat = Alat::findOrFail($id);
         return view('alat.edit', compact('alat'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Alat $alat)
     {
         $request->validate([
-            'nama_alat'   => 'required',
-            'kategori'    => 'required',
-            'status'      => 'required',
-            'waktu_sewa'  => 'required|integer',
-            'harga_sewa'  => 'required|integer',
+            'nama_alat' => 'required|string|max:100',
+            'harga'     => 'required|numeric|min:0',
+            'foto'      => 'nullable|string|max:255', // 🔴 DITAMBAHKAN
         ]);
 
-        $alat = Alat::findOrFail($id);
-        $alat->update($request->all());
+        $alat->update([
+            'nama_alat' => $request->nama_alat,
+            'harga'     => $request->harga,
+            'foto'      => $request->foto, // 🔴 DITAMBAHKAN
+        ]);
 
-        return redirect()->route('alat.index')
-            ->with('success', 'Data alat berhasil diperbarui');
+        return redirect()
+            ->route('alat.index')
+            ->with('success', 'Data berhasil diupdate');
     }
 }

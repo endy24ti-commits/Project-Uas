@@ -9,11 +9,11 @@ class Alat extends Model
 {
     use HasFactory;
 
+    protected $table = 'alats';
+
     protected $fillable = [
         'nama_alat',
-        'kategori',
-        'status',
-        'waktu_sewa',
-        'harga_sewa'
+        'harga',
+        'foto'
     ];
 }

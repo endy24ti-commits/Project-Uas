@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Alat;
 
 class DashboardController extends Controller
 {
@@ -11,6 +12,7 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('dashboard');
+        $alats = Alat::latest()->get();
+    return view('dashboard', compact('alats'));
     }
 }

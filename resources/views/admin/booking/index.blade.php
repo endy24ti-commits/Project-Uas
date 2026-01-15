@@ -7,8 +7,7 @@
     <div class="col-12">
         <div class="card shadow-sm">
             <div class="card-header d-flex justify-content-between align-items-center bg-light">
-                <h5 class="mb-0 text-secondary">
-                    <i class="zmdi zmdi-format-list-bulleted"></i>
+                <h5 class="mb-0 text-white">
                     Data Booking
                 </h5>
 
@@ -63,7 +62,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="7" class="text-center text-muted">
+                                    <td colspan="7" class="text-center text-white">
                                         Data booking belum tersedia
                                     </td>
                                 </tr>
