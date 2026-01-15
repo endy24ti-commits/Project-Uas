@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
+
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -28,12 +29,16 @@
   <!-- Custom Style-->
   <link href="assets/css/app-style.css" rel="stylesheet" />
 
+
 </head>
+
 
 <body class="bg-theme bg-theme1">
 
+
   <!-- Start wrapper-->
   <div id="wrapper">
+
 
     <!--Start sidebar-wrapper-->
     <div id="sidebar-wrapper" data-simplebar="" data-simplebar-auto-hide="true">
@@ -46,10 +51,11 @@
       <ul class="sidebar-menu do-nicescrol">
         <li class="sidebar-header">Sidebar</li>
         <li>
-          <a href="dashboard.blade.php">
+          <a href="{{ route('dashboard') }}">
             <i class="zmdi zmdi-view-dashboard"></i> <span>Dashboard</span>
           </a>
         </li>
+
 
         <li>
           <a href="{{ route('alat.index') }}">
@@ -57,11 +63,13 @@
           </a>
         </li>
 
+
         <li>
           <a href="{{ route('booking.index') }}">
             <i class="zmdi zmdi-format-list-bulleted"></i> <span>Booking</span>
           </a>
         </li>
+
 
         <li>
           <a href="{{ route('user.index') }}">
@@ -70,8 +78,10 @@
         </li>
       </ul>
 
+
     </div>
     <!--End sidebar-wrapper-->
+
 
     <!--Start topbar header-->
     <header class="topbar-nav">
@@ -89,6 +99,7 @@
             </form>
           </li>
         </ul>
+
 
         <ul class="navbar-nav align-items-center right-nav-link">
           <li class="nav-item">
@@ -122,12 +133,16 @@
     </header>
     <!--End topbar header-->
 
+
     <div class="clearfix"></div>
+
 
     <div class="content-wrapper">
       <div class="container-fluid">
 
+
         <!--Start Dashboard Content-->
+
 
         <div class="row mt-3">
           <div class="col-12 col-lg-4">
@@ -140,6 +155,7 @@
             </div>
           </div>
 
+
           <div class="col-12 col-lg-4">
             <div class="card gradient-orange">
               <div class="card-body text-center text-white">
@@ -149,6 +165,7 @@
               </div>
             </div>
           </div>
+
 
           <div class="col-12 col-lg-4">
             <div class="card gradient-green">
@@ -160,6 +177,8 @@
             </div>
           </div>
         </div>
+
+
 
 
         <div class="row">
@@ -191,6 +210,7 @@
                       <th>Harga Sewa</th>
                       <th>Tanggal Sewa</th>
 
+
                     </tr>
                   </thead>
                   <tbody>
@@ -211,6 +231,7 @@
                       </td>
                     </tr>
 
+
                     <tr>
                       <td>Earphone GL</td>
                       <td><img src="https://via.placeholder.com/110x110" class="product-img" alt="product img"></td>
@@ -223,6 +244,7 @@
                         </div>
                       </td>
                     </tr>
+
 
                     <tr>
                       <td>Camera Canon 3000D</td>
@@ -237,6 +259,7 @@
                       </td>
                     </tr>
 
+
                     <tr>
                       <td>Sepatu Nike</td>
                       <td><img src="https://via.placeholder.com/110x110" class="product-img" alt="product img"></td>
@@ -249,6 +272,7 @@
                         </div>
                       </td>
                     </tr>
+
 
                     <tr>
                       <td>Hand Watch</td>
@@ -263,6 +287,7 @@
                       </td>
                     </tr>
 
+
                     <tr>
                       <td>Sepatu Adidas</td>
                       <td><img src="https://via.placeholder.com/110x110" class="product-img" alt="product img"></td>
@@ -276,6 +301,7 @@
                       </td>
                     </tr>
 
+
                   </tbody>
                 </table>
               </div>
@@ -283,19 +309,24 @@
           </div>
         </div><!--End Row-->
 
+
         <!--End Dashboard Content-->
+
 
         <!--start overlay-->
         <div class="overlay toggle-menu"></div>
         <!--end overlay-->
 
+
       </div>
       <!-- End container-fluid-->
+
 
     </div><!--End content-wrapper-->
     <!--Start Back To Top Button-->
     <a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
     <!--End Back To Top Button-->
+
 
     <!--Start footer-->
     <footer class="footer">
@@ -307,6 +338,7 @@
     </footer>
     <!--End footer-->
 
+
     <!--start color switcher-->
     <div class="right-sidebar">
       <div class="switcher-icon">
@@ -314,8 +346,10 @@
       </div>
       <div class="right-sidebar-content">
 
+
         <p class="mb-0">Gaussion Texture</p>
         <hr>
+
 
         <ul class="switcher">
           <li id="theme1"></li>
@@ -326,8 +360,10 @@
           <li id="theme6"></li>
         </ul>
 
+
         <p class="mb-0">Gradient Background</p>
         <hr>
+
 
         <ul class="switcher">
           <li id="theme7"></li>
@@ -341,9 +377,11 @@
           <li id="theme15"></li>
         </ul>
 
+
       </div>
     </div>
     <!--end color switcher-->
+
 
     <!-- LOGIN & REGISTER BUTTON (BOTTOM LEFT) -->
     <div style="
@@ -360,12 +398,16 @@
     </div>
 
 
+
+
   </div><!--End wrapper-->
+
 
   <!-- Bootstrap core JavaScript-->
   <script src="assets/js/jquery.min.js"></script>
   <script src="assets/js/popper.min.js"></script>
   <script src="assets/js/bootstrap.min.js"></script>
+
 
   <!-- simplebar js -->
   <script src="assets/plugins/simplebar/js/simplebar.js"></script>
@@ -377,12 +419,17 @@
   <script src="assets/js/app-script.js"></script>
   <!-- Chart js -->
 
+
   <script src="assets/plugins/Chart.js/Chart.min.js"></script>
+
 
   <!-- Index js -->
   <script src="assets/js/index.js"></script>
 
 
+
+
 </body>
+
 
 </html>
