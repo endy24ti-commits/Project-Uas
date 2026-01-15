@@ -301,7 +301,7 @@
     <footer class="footer">
       <div class="container">
         <div class="text-center">
-          Copyright © 2018 Dashtreme Admin
+          Copyright © 2026 Dashtreme Admin
         </div>
       </div>
     </footer>
@@ -350,8 +350,7 @@
   position: fixed;
   bottom: 20px;
   left: 20px;
-  z-index: 9999;
-">
+  z-index: 9999;">
       <a href="{{ url('/login') }}" class="btn btn-light btn-sm mb-2 w-100 text-white">
         Login
       </a>

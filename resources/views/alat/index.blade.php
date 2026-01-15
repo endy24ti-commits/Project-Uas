@@ -3,7 +3,6 @@
 @section('title', 'Data Alat')
 
 @section('content')
-
 <div class="row">
     <div class="col-12">
         <div class="card shadow-sm">
@@ -18,16 +17,13 @@
             <div class="card-body">
                 <div class="table-responsive">
 
-                    <table class="table table-bordered table-hover">
+                    <table class="table table-bordered table-non-interactive">
                         <thead class="table-light">
                             <tr>
                                 <th>No</th>
                                 <th>Nama Alat</th>
-                                <th>Kategori</th>
-                                <th>Status</th>
-                                <th>Waktu Sewa</th>
-                                <th>Harga Sewa</th>
-                                <th>Aksi</th>
+                                <th>Harga</th>
+                                <th width="120">Aksi</th>
                             </tr>
                         </thead>
 
@@ -36,27 +32,16 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $alat->nama_alat }}</td>
-                                    <td>{{ $alat->kategori }}</td>
                                     <td>
-                                        <span class="badge 
-                                            {{ $alat->status == 'Tersedia' ? 'badge-success' : 'badge-warning' }}">
-                                            {{ $alat->status }}
-                                        </span>
-                                    </td>
-                                    <td>{{ $alat->waktu_sewa }} hari</td>
-                                    <td>
-                                        Rp {{ number_format($alat->harga_sewa,0,',','.') }}
+                                        Rp {{ number_format($alat->harga, 0, ',', '.') }}
                                     </td>
                                     <td>
-                                        <a href="{{ route('alat.edit', $alat->id) }}" 
-                                           class="btn btn-warning btn-sm">
-                                            <i class="zmdi zmdi-edit"></i>
-                                        </a>
+                                        <span class="text-muted">—</span>
                                     </td>
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="7" class="text-center text-white">
+                                    <td colspan="4" class="text-center text-muted">
                                         Data alat belum tersedia
                                     </td>
                                 </tr>
@@ -71,5 +56,4 @@
         </div>
     </div>
 </div>
-
 @endsection

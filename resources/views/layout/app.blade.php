@@ -53,10 +53,6 @@
         <ul class="sidebar-menu do-nicescrol">
             <li class="sidebar-header">Sidebar</li>
 
-
-        <ul class="sidebar-menu do-nicescrol">
-            <li class="sidebar-header">Sidebar</li>
-
             <li>
                 <a href="{{ url('/dashboard') }}">
                     <i class="zmdi zmdi-view-dashboard"></i> <span>Dashboard</span>
