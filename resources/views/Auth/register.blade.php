@@ -4,133 +4,153 @@
   <meta charset="utf-8"/>
   <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-  <meta name="description" content=""/>
-  <meta name="author" content=""/>
-  <title>Dashtreme Admin - Free Dashboard for Bootstrap 4 by Codervent</title>
+  <title>Register | Sistem Booking Alat</title>
+
   <!-- loader-->
-  <link href="assets/css/pace.min.css" rel="stylesheet"/>
-  <script src="assets/js/pace.min.js"></script>
+  <link href="{{ asset('assets/css/pace.min.css') }}" rel="stylesheet"/>
+  <script src="{{ asset('assets/js/pace.min.js') }}"></script>
+
   <!--favicon-->
-  <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}" type="image/x-icon">
+
   <!-- Bootstrap core CSS-->
-  <link href="assets/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet"/>
+
   <!-- animate CSS-->
-  <link href="assets/css/animate.css" rel="stylesheet" type="text/css"/>
+  <link href="{{ asset('assets/css/animate.css') }}" rel="stylesheet"/>
+
   <!-- Icons CSS-->
-  <link href="assets/css/icons.css" rel="stylesheet" type="text/css"/>
+  <link href="{{ asset('assets/css/icons.css') }}" rel="stylesheet"/>
+
   <!-- Custom Style-->
-  <link href="assets/css/app-style.css" rel="stylesheet"/>
-  
+  <link href="{{ asset('assets/css/app-style.css') }}" rel="stylesheet"/>
 </head>
 
 <body class="bg-theme bg-theme1">
 
-<!-- start loader -->
-   <div id="pageloader-overlay" class="visible incoming"><div class="loader-wrapper-outer"><div class="loader-wrapper-inner" ><div class="loader"></div></div></div></div>
-   <!-- end loader -->
-
-<!-- Start wrapper-->
- <div id="wrapper">
-
-	<div class="card card-authentication1 mx-auto my-4">
-		<div class="card-body">
-		 <div class="card-content p-2">
-		 	<div class="text-center">
-		 		<img src="assets/images/logo-icon.png" alt="logo icon">
-		 	</div>
-		  <div class="card-title text-uppercase text-center py-3">Sign Up</div>
-		    <form>
-			  <div class="form-group">
-			  <label for="exampleInputName" class="sr-only">Name</label>
-			   <div class="position-relative has-icon-right">
-				  <input type="text" id="exampleInputName" class="form-control input-shadow" placeholder="Masukkan Nama Anda">
-				  <div class="form-control-position">
-					  <i class="icon-user"></i>
-				  </div>
-			   </div>
-			  </div>
-			  <div class="form-group">
-			  <label for="exampleInputEmailId" class="sr-only">Email ID</label>
-			   <div class="position-relative has-icon-right">
-				  <input type="text" id="exampleInputEmailId" class="form-control input-shadow" placeholder="Masukkan Email Anda">
-				  <div class="form-control-position">
-					  <i class="icon-envelope-open"></i>
-				  </div>
-			   </div>
-			  </div>
-			  <div class="form-group">
-			   <label for="exampleInputPassword" class="sr-only">Password</label>
-			   <div class="position-relative has-icon-right">
-				  <input type="text" id="exampleInputPassword" class="form-control input-shadow" placeholder="Masukkan Sandi Anda">
-				  <div class="form-control-position">
-					  <i class="icon-lock"></i>
-				  </div>
-			   </div>
-			  </div>
-			  
-			   <div class="form-group">
-			     <div class="icheck-material-white">
-                   <input type="checkbox" id="user-checkbox" checked="" />
-                   <label for="user-checkbox">I Agree With Terms & Conditions</label>
-			     </div>
-			    </div>
-			  
-			 <button type="button" class="btn btn-light btn-block waves-effect waves-light">Sign Up</button>
-    
-     <!--Start Back To Top Button-->
-    <a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
-    <!--End Back To Top Button-->
-	
-	<!--start color switcher-->
-   <div class="right-sidebar">
-    <div class="switcher-icon">
-      <i class="zmdi zmdi-settings zmdi-hc-spin"></i>
+<!-- loader -->
+<div id="pageloader-overlay" class="visible incoming">
+  <div class="loader-wrapper-outer">
+    <div class="loader-wrapper-inner">
+      <div class="loader"></div>
     </div>
-    <div class="right-sidebar-content">
+  </div>
+</div>
 
-      <p class="mb-0">Gaussion Texture</p>
-      <hr>
-      
-      <ul class="switcher">
-        <li id="theme1"></li>
-        <li id="theme2"></li>
-        <li id="theme3"></li>
-        <li id="theme4"></li>
-        <li id="theme5"></li>
-        <li id="theme6"></li>
-      </ul>
+<div id="wrapper">
 
-      <p class="mb-0">Gradient Background</p>
-      <hr>
-      
-      <ul class="switcher">
-        <li id="theme7"></li>
-        <li id="theme8"></li>
-        <li id="theme9"></li>
-        <li id="theme10"></li>
-        <li id="theme11"></li>
-        <li id="theme12"></li>
-		<li id="theme13"></li>
-        <li id="theme14"></li>
-        <li id="theme15"></li>
-      </ul>
-      
-     </div>
-   </div>
-  <!--end color switcher-->
-	
-	</div><!--wrapper-->
-	
-  <!-- Bootstrap core JavaScript-->
-  <script src="assets/js/jquery.min.js"></script>
-  <script src="assets/js/popper.min.js"></script>
-  <script src="assets/js/bootstrap.min.js"></script>
-	
-  <!-- sidebar-menu js -->
-  <script src="assets/js/sidebar-menu.js"></script>
-  
-  <!-- Custom scripts -->
-  <script src="assets/js/app-script.js"></script>
-  
+  <div class="card card-authentication1 mx-auto my-4">
+    <div class="card-body">
+      <div class="card-content p-2">
+
+        <div class="text-center">
+          <img src="{{ asset('assets/images/logo-icon.png') }}" alt="logo icon">
+        </div>
+
+        <div class="card-title text-uppercase text-center py-3">
+          Sign Up
+        </div>
+
+        {{-- ERROR VALIDATION --}}
+        @if ($errors->any())
+          <div class="alert alert-danger">
+            <ul class="mb-0">
+              @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+              @endforeach
+            </ul>
+          </div>
+        @endif
+
+        {{-- FORM REGISTER --}}
+        <form action="{{ route('register') }}" method="POST">
+          @csrf
+
+          <div class="form-group">
+            <label class="sr-only">Nama</label>
+            <div class="position-relative has-icon-right">
+              <input
+                type="text"
+                name="name"
+                class="form-control input-shadow"
+                placeholder="Masukkan Nama Anda"
+                required
+              >
+              <div class="form-control-position">
+                <i class="icon-user"></i>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="sr-only">Email</label>
+            <div class="position-relative has-icon-right">
+              <input
+                type="email"
+                name="email"
+                class="form-control input-shadow"
+                placeholder="Masukkan Email Anda"
+                required
+              >
+              <div class="form-control-position">
+                <i class="icon-envelope-open"></i>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="sr-only">Password</label>
+            <div class="position-relative has-icon-right">
+              <input
+                type="password"
+                name="password"
+                class="form-control input-shadow"
+                placeholder="Masukkan Password Anda"
+                required
+              >
+              <div class="form-control-position">
+                <i class="icon-lock"></i>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="icheck-material-white">
+              <input type="checkbox" id="agree" required>
+              <label for="agree">I Agree With Terms & Conditions</label>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-light btn-block">
+            Sign Up
+          </button>
+
+          <div class="text-center mt-3">
+            <p class="mb-0">
+              Sudah punya akun?
+              <a href="{{ route('login') }}">Login</a>
+            </p>
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Back To Top -->
+  <a href="javaScript:void();" class="back-to-top">
+    <i class="fa fa-angle-double-up"></i>
+  </a>
+
+</div>
+
+<!-- JS -->
+<script src="{{ asset('assets/js/jquery.min.js') }}"></script>
+<script src="{{ asset('assets/js/popper.min.js') }}"></script>
+<script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('assets/js/sidebar-menu.js') }}"></script>
+<script src="{{ asset('assets/js/app-script.js') }}"></script>
+
 </body>
 </html>

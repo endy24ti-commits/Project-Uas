@@ -5,23 +5,26 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-  <meta name="description" content="" />
-  <meta name="author" content="" />
-  <title>Dashtreme Admin - Free Dashboard for Bootstrap 4 by Codervent</title>
-  <!-- loader-->
-  <link href="assets/css/pace.min.css" rel="stylesheet" />
-  <script src="assets/js/pace.min.js"></script>
-  <!--favicon-->
-  <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
-  <!-- Bootstrap core CSS-->
-  <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
-  <!-- animate CSS-->
-  <link href="assets/css/animate.css" rel="stylesheet" type="text/css" />
-  <!-- Icons CSS-->
-  <link href="assets/css/icons.css" rel="stylesheet" type="text/css" />
-  <!-- Custom Style-->
-  <link href="assets/css/app-style.css" rel="stylesheet" />
+  <title>Login | Sistem Booking Alat</title>
 
+  <!-- loader-->
+  <link href="{{ asset('assets/css/pace.min.css') }}" rel="stylesheet" />
+  <script src="{{ asset('assets/js/pace.min.js') }}"></script>
+
+  <!--favicon-->
+  <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}" type="image/x-icon">
+
+  <!-- Bootstrap core CSS-->
+  <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" />
+
+  <!-- animate CSS-->
+  <link href="{{ asset('assets/css/animate.css') }}" rel="stylesheet" />
+
+  <!-- Icons CSS-->
+  <link href="{{ asset('assets/css/icons.css') }}" rel="stylesheet" />
+
+  <!-- Custom Style-->
+  <link href="{{ asset('assets/css/app-style.css') }}" rel="stylesheet" />
 </head>
 
 <body class="bg-theme bg-theme1">
@@ -36,112 +39,118 @@
   </div>
   <!-- end loader -->
 
-  <!-- Start wrapper-->
   <div id="wrapper">
 
-    <div class="loader-wrapper">
-      <div class="lds-ring">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
-    </div>
     <div class="card card-authentication1 mx-auto my-5">
       <div class="card-body">
         <div class="card-content p-2">
+
+          <!-- LOGO -->
           <div class="text-center">
-            <img src="assets/images/logo-icon.png" alt="logo icon">
+            <img src="{{ asset('assets/images/logo-icon.png') }}" alt="logo icon">
           </div>
-          <div class="card-title text-uppercase text-center py-3">Sign In</div>
-          <form>
+
+          <div class="card-title text-uppercase text-center py-3">
+            Sign In
+          </div>
+
+          {{-- ALERT ERROR --}}
+          @if(session('error'))
+            <div class="alert alert-danger text-center">
+              {{ session('error') }}
+            </div>
+          @endif
+
+          {{-- ALERT SUCCESS --}}
+          @if(session('success'))
+            <div class="alert alert-success text-center">
+              {{ session('success') }}
+            </div>
+          @endif
+
+          {{-- FORM LOGIN --}}
+          <form action="{{ route('login') }}" method="POST">
+            @csrf
+
             <div class="form-group">
-              <label for="exampleInputUsername" class="sr-only">Username</label>
+              <label class="sr-only">Email</label>
               <div class="position-relative has-icon-right">
-                <input type="text" id="exampleInputUsername" class="form-control input-shadow" placeholder="Enter Username">
+                <input
+                  type="email"
+                  name="email"
+                  class="form-control input-shadow"
+                  placeholder="Masukkan Email"
+                  required
+                >
                 <div class="form-control-position">
-                  <i class="icon-user"></i>
+                  <i class="icon-envelope"></i>
                 </div>
               </div>
             </div>
+
             <div class="form-group">
-              <label for="exampleInputPassword" class="sr-only">Password</label>
+              <label class="sr-only">Password</label>
               <div class="position-relative has-icon-right">
-                <input type="password" id="exampleInputPassword" class="form-control input-shadow" placeholder="Enter Password">
+                <input
+                  type="password"
+                  name="password"
+                  class="form-control input-shadow"
+                  placeholder="Masukkan Password"
+                  required
+                >
                 <div class="form-control-position">
                   <i class="icon-lock"></i>
                 </div>
               </div>
             </div>
-            <div class="form-row">
+
+            <div class="form-row mb-2">
               <div class="form-group col-6">
                 <div class="icheck-material-white">
-                  <input type="checkbox" id="user-checkbox" checked="" />
-                  <label for="user-checkbox">Remember me</label>
+                  <input type="checkbox" id="remember" name="remember">
+                  <label for="remember">Remember me</label>
                 </div>
               </div>
               <div class="form-group col-6 text-right">
-                <a href="reset-password.html">Reset Password</a>
+                <a href="#" class="text-white-50">Reset Password</a>
               </div>
             </div>
-            <button type="button" class="btn btn-light btn-block">Sign In</button>
+
+            <button type="submit" class="btn btn-light btn-block">
+              Sign In
+            </button>
+
+            <!-- REGISTER LINK -->
+            <div class="text-center mt-3">
+              <span class="text-white-50">Belum punya akun?</span>
+              <a href="{{ route('register.form') }}" class="text-warning font-weight-bold">
+                Daftar sekarang
+              </a>
+            </div>
+
+          </form>
+
         </div>
+      </div>
+    </div>
 
-        <!--Start Back To Top Button-->
-        <a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
-        <!--End Back To Top Button-->
+    <!-- Back To Top -->
+    <a href="javaScript:void();" class="back-to-top">
+      <i class="fa fa-angle-double-up"></i>
+    </a>
 
-        <!--start color switcher-->
-        <div class="right-sidebar">
-          <div class="switcher-icon">
-            <i class="zmdi zmdi-settings zmdi-hc-spin"></i>
-          </div>
-          <div class="right-sidebar-content">
+  </div>
 
-            <p class="mb-0">Gaussion Texture</p>
-            <hr>
+  <!-- Bootstrap core JavaScript-->
+  <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
+  <script src="{{ asset('assets/js/popper.min.js') }}"></script>
+  <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
 
-            <ul class="switcher">
-              <li id="theme1"></li>
-              <li id="theme2"></li>
-              <li id="theme3"></li>
-              <li id="theme4"></li>
-              <li id="theme5"></li>
-              <li id="theme6"></li>
-            </ul>
+  <!-- sidebar-menu js -->
+  <script src="{{ asset('assets/js/sidebar-menu.js') }}"></script>
 
-            <p class="mb-0">Gradient Background</p>
-            <hr>
-
-            <ul class="switcher">
-              <li id="theme7"></li>
-              <li id="theme8"></li>
-              <li id="theme9"></li>
-              <li id="theme10"></li>
-              <li id="theme11"></li>
-              <li id="theme12"></li>
-              <li id="theme13"></li>
-              <li id="theme14"></li>
-              <li id="theme15"></li>
-            </ul>
-
-          </div>
-        </div>
-        <!--end color switcher-->
-
-      </div><!--wrapper-->
-
-      <!-- Bootstrap core JavaScript-->
-      <script src="assets/js/jquery.min.js"></script>
-      <script src="assets/js/popper.min.js"></script>
-      <script src="assets/js/bootstrap.min.js"></script>
-
-      <!-- sidebar-menu js -->
-      <script src="assets/js/sidebar-menu.js"></script>
-
-      <!-- Custom scripts -->
-      <script src="assets/js/app-script.js"></script>
+  <!-- Custom scripts -->
+  <script src="{{ asset('assets/js/app-script.js') }}"></script>
 
 </body>
-
 </html>

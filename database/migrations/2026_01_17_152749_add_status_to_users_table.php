@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('alats', function (Blueprint $table) {
-$table->string('kategori')->nullable()->after('nama_alat');
-});
+        Schema::table('users', function (Blueprint $table) {
+            $table->enum('status', ['aktif', 'nonaktif'])
+                  ->default('aktif')
+                  ->after('role');
+        });
     }
 
     /**
@@ -21,8 +23,8 @@ $table->string('kategori')->nullable()->after('nama_alat');
      */
     public function down(): void
     {
-        Schema::table('alats', function (Blueprint $table) {
-            //
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('status');
         });
     }
 };

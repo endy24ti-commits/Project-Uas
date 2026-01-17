@@ -12,15 +12,29 @@
                 </h5>
 
                 <a href="{{ route('booking.create') }}" class="btn btn-primary btn-sm">
-                    <i class="zmdi zmdi-plus"></i> Tambah Booking
+                    <i class="zmdi"></i> Tambah Booking
                 </a>
             </div>
 
             <div class="card-body">
-                @if (session('success'))
-                    <div class="alert alert-success">
-                        {{ session('success') }}
-                    </div>
+
+                {{-- NOTIFIKASI --}}
+                @if(session('message'))
+                @php
+                $bgColor = match(session('type')) {
+                'create' => '#16a34a', // hijau - tambah
+                'update' => '#2563eb', // biru - update
+                'delete' => '#dc2626', // merah - hapus
+                default => '#0f766e',
+                };
+                @endphp
+
+                <div class="alert mb-3"
+                    style="color:#fff; border:none;"
+                    data-bg="{{ $bgColor }}">
+
+                    {{ session('message') }}
+                </div>
                 @endif
 
                 <div class="table-responsive">
@@ -32,40 +46,45 @@
                                 <th>Nama Alat</th>
                                 <th>Tanggal Booking</th>
                                 <th>Tanggal Kembali</th>
-                                <th>Status</th>
                                 <th width="150">Aksi</th>
                             </tr>
                         </thead>
 
                         <tbody>
                             @forelse ($bookings as $booking)
-                                <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $booking->user->name ?? '-' }}</td>
-                                    <td>{{ $booking->alat->nama_alat ?? '-' }}</td>
-                                    <td>{{ $booking->tanggal_booking }}</td>
-                                    <td>{{ $booking->tanggal_kembali }}</td>
-                                    <td>
-                                        @if ($booking->status == 'dipinjam')
-                                            <span class="badge badge-warning">Dipinjam</span>
-                                        @elseif ($booking->status == 'selesai')
-                                            <span class="badge badge-success">Selesai</span>
-                                        @else
-                                            <span class="badge badge-secondary">
-                                                {{ ucfirst($booking->status) }}
-                                            </span>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        <span class="text-muted">—</span>
-                                    </td>
-                                </tr>
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $booking->nama }}</td>
+                                <td>{{ $booking->nama_alat }}</td>
+                                <td>{{ $booking->tanggal_sewa }}</td>
+                                <td>{{ $booking->tanggal_kembali }}</td>
+                                <td>
+                                    <!-- Edit -->
+                                    <a href="{{ route('booking.edit', $booking->id) }}"
+                                        class="btn btn-sm btn-info">
+                                        <i class="zmdi zmdi-edit"></i> Edit
+                                    </a>
+
+                                    <!-- Hapus -->
+                                    <form action="{{ route('booking.destroy', $booking->id) }}"
+                                        method="POST"
+                                        style="display:inline-block;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit"
+                                            class="btn btn-sm btn-danger"
+                                            onclick="return confirm('Yakin ingin hapus booking ini?')">
+                                            <i class="zmdi zmdi-delete"></i> Hapus
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
                             @empty
-                                <tr>
-                                    <td colspan="7" class="text-center text-white">
-                                        Data booking belum tersedia
-                                    </td>
-                                </tr>
+                            <tr>
+                                <td colspan="6" class="text-center text-white">
+                                    Data booking belum tersedia
+                                </td>
+                            </tr>
                             @endforelse
                         </tbody>
                     </table>

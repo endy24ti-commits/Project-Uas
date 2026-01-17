@@ -1,4 +1,4 @@
-@extends('layout.app') 
+@extends('layout.app')
 
 @section('title', 'Data Alat')
 
@@ -8,18 +8,33 @@
         <div class="card shadow-sm">
 
             <div class="card-header d-flex justify-content-between align-items-center bg-light">
-                <h5 class="mb-0 text-white">Data Alat</h5>
+                <h5 class="mb-0 text-white">
+                    Data Alat
+                </h5>
+
                 <a href="{{ route('alat.create') }}" class="btn btn-primary btn-sm">
-                    <i class="zmdi zmdi-plus"></i> Tambah Alat
+                    <i class="zmdi"></i> Tambah Alat
                 </a>
             </div>
 
             <div class="card-body">
 
-                @if (session('success'))
-                    <div class="alert alert-success">
-                        {{ session('success') }}
-                    </div>
+                @if(session('message'))
+                @php
+                $bgColor = match(session('type')) {
+                'create' => '#16a34a',
+                'update' => '#2563eb',
+                'delete' => '#dc2626',
+                default => '#0f766e',
+                };
+                @endphp
+
+                <div class="alert mb-3"
+                    style="color:#fff; border:none;"
+                    data-bg="{{ $bgColor }}">
+
+                    {{ session('message') }}
+                </div>
                 @endif
 
                 <div class="table-responsive">
@@ -28,45 +43,62 @@
                             <tr>
                                 <th width="50">No</th>
                                 <th>Nama Alat</th>
+                                <th>Foto</th>
                                 <th>Harga</th>
-                                <th width="120" class="text-center">Aksi</th>
+                                <th width="170">Aksi</th>
                             </tr>
                         </thead>
 
                         <tbody>
                             @forelse ($alats as $alat)
-                                <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $alat->nama_alat }}</td>
-                                    <td>
-                                        Rp {{ number_format($alat->harga, 0, ',', '.') }}
-                                    </td>
-                                    <td class="text-center">
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $alat->nama_alat }}</td>
 
-                                        <a href="{{ route('alat.edit', $alat->id) }}" 
-                                           class="btn btn-warning btn-sm">
-                                            <i class="">Edit</i>
-                                        </a>
+                                {{-- FOTO --}}
+                                <td>
+                                    @if($alat->foto)
+                                    <img src="{{ $alat->foto }}"
+                                        alt="Foto {{ $alat->nama_alat }}"
+                                        width="80"
+                                        height="60"
+                                        style="object-fit:cover; border-radius:6px;">
+                                    @else
+                                    <span class="text-muted">No Image</span>
+                                    @endif
+                                </td>
 
-                                        <form action="{{ route('alat.destroy', $alat->id) }}" 
-                                              method="POST" 
-                                              class="d-inline"
-                                              onsubmit="return confirm('Yakin ingin menghapus alat ini?')">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm">
-                                                <i class="">Hapus</i>
-                                            </button>
-                                        </form>
+                                <td>
+                                    Rp {{ number_format($alat->harga, 0, ',', '.') }}
+                                </td>
 
-                                    </td>
-                                </tr>
+                                <td>
+                                    <!-- Edit -->
+                                    <a href="{{ route('alat.edit', $alat->id) }}"
+                                        class="btn btn-sm btn-info mb-1">
+                                        <i class="zmdi zmdi-edit"></i> Edit
+                                    </a>
+
+                                    <!-- Hapus -->
+                                    <form action="{{ route('alat.destroy', $alat->id) }}"
+                                        method="POST"
+                                        style="display:inline-block;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit"
+                                            class="btn btn-sm btn-danger"
+                                            onclick="return confirm('Yakin ingin menghapus alat ini?')">
+                                            <i class="zmdi zmdi-delete"></i> Hapus
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
                             @empty
-                                <tr>
-                                    <td colspan="4" class="text-center text-muted">
-                                        Data alat belum tersedia
-                                    </td>
-                                </tr>
+                            <tr>
+                                <td colspan="5" class="text-center text-white">
+                                    Data alat belum tersedia
+                                </td>
+                            </tr>
                             @endforelse
                         </tbody>
 

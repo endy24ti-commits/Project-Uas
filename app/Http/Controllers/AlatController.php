@@ -23,18 +23,19 @@ class AlatController extends Controller
         $request->validate([
             'nama_alat' => 'required|string|max:100',
             'harga'     => 'required|numeric|min:0',
-            'foto'      => 'nullable|string|max:255', // 🔴 DITAMBAHKAN
+            'foto'      => 'nullable|url|max:255',
         ]);
 
         Alat::create([
             'nama_alat' => $request->nama_alat,
             'harga'     => $request->harga,
-            'foto'      => $request->foto, // 🔴 DITAMBAHKAN
+            'foto'      => $request->foto,
         ]);
 
         return redirect()
             ->route('alat.index')
-            ->with('success', 'Data berhasil disimpan');
+            ->with('message', 'Alat berhasil ditambahkan')
+            ->with('type', 'create');
     }
 
     public function edit(Alat $alat)
@@ -47,17 +48,28 @@ class AlatController extends Controller
         $request->validate([
             'nama_alat' => 'required|string|max:100',
             'harga'     => 'required|numeric|min:0',
-            'foto'      => 'nullable|string|max:255', // 🔴 DITAMBAHKAN
+            'foto'      => 'nullable|url|max:255',
         ]);
 
         $alat->update([
             'nama_alat' => $request->nama_alat,
             'harga'     => $request->harga,
-            'foto'      => $request->foto, // 🔴 DITAMBAHKAN
+            'foto'      => $request->foto,
         ]);
 
         return redirect()
             ->route('alat.index')
-            ->with('success', 'Data berhasil diupdate');
+            ->with('message', 'Alat berhasil diupdate')
+            ->with('type', 'update');
     }
+
+    public function destroy(Alat $alat)
+{
+    $alat->delete();
+
+    return redirect()
+        ->route('alat.index')
+        ->with('message', 'Alat berhasil dihapus')
+        ->with('type', 'delete');
+}
 }

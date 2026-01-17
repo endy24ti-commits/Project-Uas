@@ -1,6 +1,6 @@
 @extends('layout.app')
 
-@section('title', 'Tambah Alat')
+@section('title', 'Edit Booking')
 
 @section('content')
 <div class="container mt-5">
@@ -11,52 +11,56 @@
             <div class="card shadow border-0">
 
                 <div class="card-header text-center">
-                    <h5 class="mb-0 fw-bold">Tambah Alat</h5>
+                    <h5 class="mb-0 fw-bold">Edit Booking</h5>
                 </div>
 
                 <div class="card-body px-4 py-4">
-                    <form action="{{ route('alat.store') }}" method="POST">
+                    <form action="{{ route('booking.update', $booking->id) }}" method="POST">
                         @csrf
+                        @method('PUT')
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Nama</label>
+                            <input type="text"
+                                   name="nama"
+                                   class="form-control"
+                                   value="{{ $booking->nama }}"
+                                   required>
+                        </div>
 
                         <div class="mb-3">
                             <label class="form-label">Nama Alat</label>
                             <input type="text"
                                    name="nama_alat"
                                    class="form-control"
+                                   value="{{ $booking->nama_alat }}"
                                    required>
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label">Harga</label>
-                            <input type="number"
-                                   name="harga"
+                            <label class="form-label">Tanggal Sewa</label>
+                            <input type="date"
+                                   name="tanggal_sewa"
                                    class="form-control"
+                                   value="{{ $booking->tanggal_sewa }}"
                                    required>
                         </div>
 
                         <div class="mb-4">
-                            <label class="form-label">Link Foto Produk</label>
-                            <input type="text"
-                                   id="foto"
-                                   name="foto"
+                            <label class="form-label">Tanggal Pengembalian</label>
+                            <input type="date"
+                                   name="tanggal_kembali"
                                    class="form-control"
-                                   placeholder="https://picsum.photos/300"
-                                   oninput="previewFoto()">
+                                   value="{{ $booking->tanggal_kembali }}"
+                                   required>
                         </div>
-
-                        {{-- PREVIEW --}}
-                        <div class="mb-4 text-center">
-                            <img id="preview"
-                                 src=""
-                                 style="display:none; max-width:150px; border-radius:8px;">
-                        </div>
-
+                        
                         <div class="d-flex justify-content-center gap-3">
                             <button class="btn btn-primary px-4">
                                 <i class="zmdi zmdi-save"></i> Simpan
                             </button>
 
-                            <a href="{{ route('alat.index') }}" class="btn btn-secondary px-4">
+                            <a href="{{ url('/booking') }}" class="btn btn-secondary px-4">
                                 Kembali
                             </a>
                         </div>
@@ -69,18 +73,4 @@
     </div>
 
 </div>
-
-<script>
-function previewFoto() {
-    const url = document.getElementById('foto').value;
-    const img = document.getElementById('preview');
-
-    if (url) {
-        img.src = url;
-        img.style.display = 'block';
-    } else {
-        img.style.display = 'none';
-    }
-}
-</script>
 @endsection
