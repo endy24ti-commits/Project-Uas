@@ -10,34 +10,25 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $user = Auth::user(); // bisa null (guest)
+        $user = Auth::user();
 
-        // Default (guest)
-        $data = [
-            'totalAlat'    => Alat::count(),
-            'totalBooking' => Booking::count(),
-        ];
+        // Data default untuk Admin/Staff (Melihat semua)
+        $totalAlat = Alat::count();
+        $totalBooking = Booking::count();
+        $bookingList = Booking::latest()->take(10)->get();
 
-        // User login
-        if ($user) {
-            // USER
-            if ($user->role === 'user') {
-                $data['totalBooking'] = Booking::where('user_id', $user->id)->count();
-            }
-
-            // STAFF
-            if ($user->role === 'staff') {
-                $data['totalAlat'] = Alat::count();
-                $data['totalBooking'] = Booking::count();
-            }
-
-            // ADMIN / SUPERADMIN
-            if ($user->role === 'superadmin') {
-                $data['totalAlat'] = Alat::count();
-                $data['totalBooking'] = Booking::count();
-            }
+        // Jika yang login adalah USER, filter data hanya miliknya
+        if ($user && $user->role === 'user') {
+            // Statistik khusus user: total booking atas namanya
+            $totalBooking = Booking::where('nama', $user->name)->count();
+            
+            // Tabel khusus user: hanya menampilkan booking miliknya
+            $bookingList = Booking::where('nama', $user->name)
+                                  ->latest()
+                                  ->take(10)
+                                  ->get();
         }
 
-        return view('dashboard', $data);
+        return view('dashboard', compact('totalAlat', 'totalBooking', 'bookingList'));
     }
 }

@@ -7,20 +7,11 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AlatController;
 use App\Http\Controllers\BookingController;
 
-/*
-|--------------------------------------------------------------------------
-| GUEST
-|--------------------------------------------------------------------------
-| Akses tanpa login → dashboard
-*/
+/*guest*/
 Route::get('/', [DashboardController::class, 'index'])->name('home');
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-/*
-|--------------------------------------------------------------------------
-| AUTH (LOGIN & REGISTER)
-|--------------------------------------------------------------------------
-*/
+/*login dan daftar*/
 Route::middleware('guest')->group(function () {
     // LOGIN
     Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
@@ -31,39 +22,23 @@ Route::middleware('guest')->group(function () {
     Route::post('/register', [AuthController::class, 'register'])->name('register');
 });
 
-/*
-|--------------------------------------------------------------------------
-| AUTHENTICATED
-|--------------------------------------------------------------------------
-*/
+/*autentikasi*/
 Route::middleware('auth')->group(function () {
 
     // LOGOUT
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-    /*
-    |--------------------------------------------------------------------------
-    | SUPERADMIN
-    |--------------------------------------------------------------------------
-    */
+    /*admin*/
     Route::middleware('role:superadmin')->group(function () {
         Route::resource('user', UserController::class);
     });
 
-    /*
-    |--------------------------------------------------------------------------
-    | SUPERADMIN & STAFF
-    |--------------------------------------------------------------------------
-    */
+    /*admin*/
     Route::middleware('role:superadmin,staff')->group(function () {
         Route::resource('alat', AlatController::class);
     });
 
-    /*
-    |--------------------------------------------------------------------------
-    | SUPERADMIN, STAFF, USER
-    |--------------------------------------------------------------------------
-    */
+    /*admin, staff dan user*/
     Route::middleware('role:superadmin,staff,user')->group(function () {
         Route::resource('booking', BookingController::class);
     });
