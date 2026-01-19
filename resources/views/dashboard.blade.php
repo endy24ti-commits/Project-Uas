@@ -6,7 +6,7 @@
 <div class="row mt-3">
     <div class="col-12">
         <h4 class="text-white mb-3">
-            Selamat Datang{{ auth()->check() ? ', ' . auth()->user()->name : '' }}
+            Halo, Selamat Datang{{ auth()->check() ? ', ' . auth()->user()->name : '' }}
         </h4>
         <div class="card bg-transparent border-light shadow-none">
             <div class="card-body p-0">
