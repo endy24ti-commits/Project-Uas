@@ -5,18 +5,20 @@
 @section('content')
 <div class="row mt-3">
     <div class="col-12">
+        {{-- Perubahan di baris ini: Tambahkan pengecekan agar tidak error saat belum login --}}
         <h4 class="text-white mb-3">
-            Halo, Selamat Datang{{ auth()->check() ? ', ' . auth()->user()->name : '' }}
+            Selamat Datang{{ auth()->check() ? ', ' . auth()->user()->name : '' }}
         </h4>
+        
         <div class="card bg-transparent border-light shadow-none">
             <div class="card-body p-0">
                 <div class="d-flex flex-wrap gap-3">
-                    {{-- Tombol Lihat Booking (Bisa dilihat siapa saja) --}}
+                    {{-- Tombol Lihat Booking tetap publik --}}
                     <a href="{{ url('/booking') }}" class="btn btn-light btn-round px-4 m-1">
                         <i class="zmdi zmdi-calendar-check mr-2"></i> Lihat Booking
                     </a>
 
-                    {{-- Bagian ini hanya muncul jika sudah LOGIN --}}
+                    {{-- Bungkus semua pengecekan ROLE dengan @auth --}}
                     @auth
                         @if(in_array(auth()->user()->role, ['superadmin', 'staff']))
                         <a href="{{ url('/alat') }}" class="btn btn-outline-white btn-round px-4 m-1">
@@ -37,7 +39,7 @@
                         </a>
                     @endauth
 
-                    {{-- Bagian ini hanya muncul jika BELUM LOGIN --}}
+                    {{-- Tampilkan tombol login jika tamu --}}
                     @guest
                         <a href="{{ route('login') }}" class="btn btn-primary btn-round px-4 m-1">
                             <i class="zmdi zmdi-lock-open mr-2"></i> Login Staff/Admin
@@ -81,6 +83,7 @@
     </div>
 </div>
 
+{{-- Sisa kode aktivitas penyewaan dan chart tetap sama --}}
 <div class="row">
     <div class="col-12 col-lg-8">
         <div class="card bg-theme bg-theme1 shadow-sm border-light">
@@ -118,9 +121,7 @@
     </div>
 </div>
 
-<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-    @csrf
-</form>
+<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">@csrf</form>
 @endsection
 
 @push('js')

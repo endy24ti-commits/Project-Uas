@@ -25,7 +25,7 @@
             <li class="sidebar-header">MENU UTAMA</li>
             <li><a href="{{ url('/dashboard') }}"><i class="zmdi zmdi-view-dashboard"></i> <span>Dashboard</span></a></li>
             
-            {{-- Proteksi Menu Sidebar --}}
+            {{-- Proteksi Menu Sidebar agar tidak error saat Guest/Tamu masuk --}}
             @auth
                 @if(in_array(auth()->user()->role, ['superadmin', 'staff']))
                 <li><a href="{{ url('/alat') }}"><i class="zmdi zmdi-wrench"></i> <span>Alat</span></a></li>
@@ -46,6 +46,7 @@
                 </li>
             @endauth
 
+            {{-- Link Login muncul hanya jika belum login --}}
             @guest
                 <li><a href="{{ route('login') }}"><i class="zmdi zmdi-lock-open"></i> <span>Login Staff</span></a></li>
             @endguest
@@ -60,7 +61,7 @@
                 </li>
             </ul>
             <ul class="navbar-nav align-items-center right-nav-link text-white mr-3">
-                {{-- Tampilkan nama user hanya jika sudah login --}}
+                {{-- Proteksi Nama User di Topbar --}}
                 @auth
                     <li><i class="zmdi zmdi-account mr-2"></i> {{ auth()->user()->name }} ({{ strtoupper(auth()->user()->role) }})</li>
                 @endauth
