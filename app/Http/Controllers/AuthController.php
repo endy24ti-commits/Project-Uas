@@ -12,7 +12,7 @@ class AuthController extends Controller
     // TAMPILAN LOGIN
     public function showLogin()
     {
-        return view('auth.login');
+        return view('auths.login');
     }
 
     // PROSES LOGIN
@@ -44,7 +44,7 @@ class AuthController extends Controller
     // TAMPILAN REGISTER
     public function showRegister()
     {
-        return view('auth.register');
+        return view('auths.register');
     }
 
     // PROSES REGISTER
