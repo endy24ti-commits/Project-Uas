@@ -5,31 +5,44 @@
 @section('content')
 <div class="row mt-3">
     <div class="col-12">
-        <h4 class="text-white mb-3">Selamat Datang, {{ auth()->user()->name }}!</h4>
+        <h4 class="text-white mb-3">
+            Selamat Datang{{ auth()->check() ? ', ' . auth()->user()->name : '' }}
+        </h4>
         <div class="card bg-transparent border-light shadow-none">
             <div class="card-body p-0">
                 <div class="d-flex flex-wrap gap-3">
+                    {{-- Tombol Lihat Booking (Bisa dilihat siapa saja) --}}
                     <a href="{{ url('/booking') }}" class="btn btn-light btn-round px-4 m-1">
                         <i class="zmdi zmdi-calendar-check mr-2"></i> Lihat Booking
                     </a>
 
-                    @if(in_array(auth()->user()->role, ['superadmin', 'staff']))
-                    <a href="{{ url('/alat') }}" class="btn btn-outline-white btn-round px-4 m-1">
-                        <i class="zmdi zmdi-wrench mr-2"></i> Kelola Alat
-                    </a>
-                    @endif
+                    {{-- Bagian ini hanya muncul jika sudah LOGIN --}}
+                    @auth
+                        @if(in_array(auth()->user()->role, ['superadmin', 'staff']))
+                        <a href="{{ url('/alat') }}" class="btn btn-outline-white btn-round px-4 m-1">
+                            <i class="zmdi zmdi-wrench mr-2"></i> Kelola Alat
+                        </a>
+                        @endif
 
-                    @if(auth()->user()->role == 'superadmin')
-                    <a href="{{ url('/user') }}" class="btn btn-warning btn-round px-4 m-1 text-dark">
-                        <i class="zmdi zmdi-accounts-list mr-2"></i> Manajemen User
-                    </a>
-                    @endif
+                        @if(auth()->user()->role == 'superadmin')
+                        <a href="{{ url('/user') }}" class="btn btn-warning btn-round px-4 m-1 text-dark">
+                            <i class="zmdi zmdi-accounts-list mr-2"></i> Manajemen User
+                        </a>
+                        @endif
 
-                    <a href="{{ route('logout') }}" 
-                       class="btn btn-danger btn-round px-4 m-1"
-                       onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                        <i class="zmdi zmdi-power mr-2"></i> Keluar
-                    </a>
+                        <a href="{{ route('logout') }}" 
+                           class="btn btn-danger btn-round px-4 m-1"
+                           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            <i class="zmdi zmdi-power mr-2"></i> Keluar
+                        </a>
+                    @endauth
+
+                    {{-- Bagian ini hanya muncul jika BELUM LOGIN --}}
+                    @guest
+                        <a href="{{ route('login') }}" class="btn btn-primary btn-round px-4 m-1">
+                            <i class="zmdi zmdi-lock-open mr-2"></i> Login Staff/Admin
+                        </a>
+                    @endguest
                 </div>
             </div>
         </div>
@@ -105,7 +118,9 @@
     </div>
 </div>
 
-<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">@csrf</form>
+<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+    @csrf
+</form>
 @endsection
 
 @push('js')
@@ -116,10 +131,10 @@
         var myChart = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: @json($labels), // Data Bulan dari Controller
+                labels: @json($labels), 
                 datasets: [{
                     label: 'Jumlah Booking',
-                    data: @json($data), // Data Angka dari Controller
+                    data: @json($data), 
                     borderColor: '#ffffff',
                     backgroundColor: 'rgba(255, 255, 255, 0.14)',
                     borderWidth: 3,

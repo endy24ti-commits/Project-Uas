@@ -25,23 +25,30 @@
             <li class="sidebar-header">MENU UTAMA</li>
             <li><a href="{{ url('/dashboard') }}"><i class="zmdi zmdi-view-dashboard"></i> <span>Dashboard</span></a></li>
             
-            @if(in_array(auth()->user()->role, ['superadmin', 'staff']))
-            <li><a href="{{ url('/alat') }}"><i class="zmdi zmdi-wrench"></i> <span>Alat</span></a></li>
-            @endif
+            {{-- Proteksi Menu Sidebar --}}
+            @auth
+                @if(in_array(auth()->user()->role, ['superadmin', 'staff']))
+                <li><a href="{{ url('/alat') }}"><i class="zmdi zmdi-wrench"></i> <span>Alat</span></a></li>
+                @endif
 
-            <li><a href="{{ url('/booking') }}"><i class="zmdi zmdi-calendar-check"></i> <span>Booking</span></a></li>
+                <li><a href="{{ url('/booking') }}"><i class="zmdi zmdi-calendar-check"></i> <span>Booking</span></a></li>
 
-            @if(auth()->user()->role == 'superadmin')
-            <li class="sidebar-header">ADMINISTRATOR</li>
-            <li><a href="{{ url('/user') }}"><i class="zmdi zmdi-accounts-list"></i> <span>User</span></a></li>
-            @endif
+                @if(auth()->user()->role == 'superadmin')
+                <li class="sidebar-header">ADMINISTRATOR</li>
+                <li><a href="{{ url('/user') }}"><i class="zmdi zmdi-accounts-list"></i> <span>User</span></a></li>
+                @endif
 
-            <li class="sidebar-header">AKUN</li>
-            <li>
-                <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                    <i class="zmdi zmdi-lock text-danger"></i> <span class="text-danger">Logout</span>
-                </a>
-            </li>
+                <li class="sidebar-header">AKUN</li>
+                <li>
+                    <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        <i class="zmdi zmdi-lock text-danger"></i> <span class="text-danger">Logout</span>
+                    </a>
+                </li>
+            @endauth
+
+            @guest
+                <li><a href="{{ route('login') }}"><i class="zmdi zmdi-lock-open"></i> <span>Login Staff</span></a></li>
+            @endguest
         </ul>
     </div>
 
@@ -53,7 +60,14 @@
                 </li>
             </ul>
             <ul class="navbar-nav align-items-center right-nav-link text-white mr-3">
-                <li><i class="zmdi zmdi-account mr-2"></i> {{ auth()->user()->name }} ({{ strtoupper(auth()->user()->role) }})</li>
+                {{-- Tampilkan nama user hanya jika sudah login --}}
+                @auth
+                    <li><i class="zmdi zmdi-account mr-2"></i> {{ auth()->user()->name }} ({{ strtoupper(auth()->user()->role) }})</li>
+                @endauth
+                
+                @guest
+                    <li><i class="zmdi zmdi-account mr-2"></i> Tamu</li>
+                @endguest
             </ul>
         </nav>
     </header>
