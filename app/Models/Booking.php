@@ -14,4 +14,9 @@ class Booking extends Model
         'tanggal_sewa',
         'tanggal_kembali',
     ];
+    public function user()
+{
+    return $this->belongsTo(User::class, 'user_id');
+}
+
 }

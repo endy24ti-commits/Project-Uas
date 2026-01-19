@@ -8,66 +8,86 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    // tampilkan data user
+    // Tampilkan data user
     public function index()
     {
+        // Mengambil semua user dari database
         $users = User::latest()->get();
         return view('user.index', compact('users'));
     }
 
-    // form tambah user
+    // Form tambah user
     public function create()
     {
-        return view('user.create');
+        // Menyiapkan pilihan untuk view
+        $roles = ['superadmin', 'staff', 'user'];
+        $statuses = ['aktif', 'nonaktif'];
+        return view('user.create', compact('roles', 'statuses'));
     }
 
-    // simpan user baru
+    // Simpan user baru
     public function store(Request $request)
     {
+        // Validasi input sesuai kolom tabel user
         $request->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:6'
+            'name'     => 'required|string|max:255',
+            'username' => 'required|string|max:255|unique:users',
+            'email'    => 'required|email|unique:users',
+            'password' => 'required|min:6',
+            'role'     => 'required|in:superadmin,staff,user',
+            'status'   => 'required|in:aktif,nonaktif'
         ]);
 
+        // Create data ke database
         User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password)
+            'name'     => $request->name,
+            'username' => $request->username,
+            'email'    => $request->email,
+            'password' => Hash::make($request->password),
+            'role'     => $request->role,
+            'status'   => $request->status
         ]);
 
-        return redirect()->route('user.index')->with('success','User berhasil ditambahkan');
+        return redirect()->route('user.index')->with('success', 'User berhasil ditambahkan');
     }
 
-    // form edit user
+    // Form edit user
     public function edit(User $user)
     {
-        return view('user.edit', compact('user'));
+        $roles = ['superadmin', 'staff', 'user'];
+        $statuses = ['aktif', 'nonaktif'];
+        return view('user.edit', compact('user', 'roles', 'statuses'));
     }
 
-    // update user
+    // Update data user
     public function update(Request $request, User $user)
     {
+        // Validasi pembaruan data
         $request->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:users,email,' . $user->id
+            'name'     => 'required|string|max:255',
+            'username' => 'required|string|max:255|unique:users,username,' . $user->id,
+            'email'    => 'required|email|unique:users,email,' . $user->id,
+            'role'     => 'required|in:superadmin,staff,user',
+            'status'   => 'required|in:aktif,nonaktif'
         ]);
 
-        $data = $request->only('name','email');
+        $data = $request->only('name', 'username', 'email', 'role', 'status');
 
+        // Update password hanya jika kolom password diisi
         if($request->password){
+            $request->validate(['password' => 'min:6']);
             $data['password'] = Hash::make($request->password);
         }
 
         $user->update($data);
 
-        return redirect()->route('user.index')->with('success','User berhasil diupdate');
+        return redirect()->route('user.index')->with('success', 'Data user berhasil diperbarui');
     }
 
-    // hapus user
+    // Hapus user
     public function destroy(User $user)
     {
-        $user->delete();
-        return redirect()->route('user.index')->with('success','User berhasil dihapus');
+        $user->delete(); //
+        return redirect()->route('user.index')->with('success', 'User berhasil dihapus');
     }
 }

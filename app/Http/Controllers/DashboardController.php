@@ -3,32 +3,43 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use App\Models\Alat;
 use App\Models\Booking;
+use App\Models\User;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        $user = Auth::user();
-
-        // Data default untuk Admin/Staff (Melihat semua)
+        // Statistik Utama
         $totalAlat = Alat::count();
         $totalBooking = Booking::count();
-        $bookingList = Booking::latest()->take(10)->get();
+        $totalUser = User::count();
+        
+        // List Booking Terbaru
+        $bookingList = Booking::latest()->take(5)->get();
 
-        // Jika yang login adalah USER, filter data hanya miliknya
-        if ($user && $user->role === 'user') {
-            // Statistik khusus user: total booking atas namanya
-            $totalBooking = Booking::where('nama', $user->name)->count();
-            
-            // Tabel khusus user: hanya menampilkan booking miliknya
-            $bookingList = Booking::where('nama', $user->name)
-                                  ->latest()
-                                  ->take(10)
-                                  ->get();
-        }
+        // FIX: Query Grafik agar kompatibel dengan sql_mode=only_full_group_by
+        $grafikData = Booking::select(
+            DB::raw('MONTHNAME(tanggal_sewa) as bulan'),
+            DB::raw('COUNT(*) as jumlah'),
+            DB::raw('MONTH(tanggal_sewa) as bulan_angka') // Ambil angka bulan untuk sorting
+        )
+        ->groupBy('bulan', 'bulan_angka') // Masukkan bulan_angka ke dalam group by
+        ->orderBy('bulan_angka', 'ASC')   // Urutkan berdasarkan angka bulan (1-12)
+        ->get();
 
-        return view('dashboard', compact('totalAlat', 'totalBooking', 'bookingList'));
+        $labels = $grafikData->pluck('bulan'); 
+        $data = $grafikData->pluck('jumlah');  
+
+        return view('dashboard', compact(
+            'totalAlat', 
+            'totalBooking', 
+            'totalUser', 
+            'bookingList', 
+            'labels', 
+            'data'
+        ));
     }
 }

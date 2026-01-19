@@ -9,17 +9,13 @@ use App\Models\User;
 
 class AuthController extends Controller
 {
-    // ======================
     // TAMPILAN LOGIN
-    // ======================
     public function showLogin()
     {
         return view('auth.login');
     }
 
-    // ======================
     // PROSES LOGIN
-    // ======================
     public function login(Request $request)
     {
         $credentials = $request->validate([
@@ -45,17 +41,13 @@ class AuthController extends Controller
         return back()->with('error', 'Email atau password salah');
     }
 
-    // ======================
     // TAMPILAN REGISTER
-    // ======================
     public function showRegister()
     {
         return view('auth.register');
     }
 
-    // ======================
     // PROSES REGISTER
-    // ======================
     public function register(Request $request)
     {
         $request->validate([
@@ -69,7 +61,7 @@ class AuthController extends Controller
             'username' => explode('@', $request->email)[0], // 🔥 FIX UTAMA
             'email'    => $request->email,
             'password' => Hash::make($request->password),
-            'role'     => 'user',
+            'role'     => 'staff',
             'status'   => 'aktif',
         ]);
 

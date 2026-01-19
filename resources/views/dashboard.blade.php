@@ -1,181 +1,152 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Dashboard | Sistem Booking</title>
-  <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" />
-  <link href="{{ asset('assets/css/animate.css') }}" rel="stylesheet" />
-  <link href="{{ asset('assets/css/icons.css') }}" rel="stylesheet" />
-  <link href="{{ asset('assets/css/sidebar-menu.css') }}" rel="stylesheet" />
-  <link href="{{ asset('assets/css/app-style.css') }}" rel="stylesheet" />
-  <style>
-    /* CSS Tambahan untuk membuat Logout berada di bawah sidebar */
-    #sidebar-wrapper {
-      display: flex;
-      flex-direction: column;
-    }
-    .sidebar-menu {
-      flex: 1; /* Mengisi ruang yang tersedia */
-      display: flex;
-      flex-direction: column;
-    }
-    .logout-item {
-      margin-top: auto; /* Memaksa item ini ke paling bawah */
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-      margin-bottom: 20px;
-    }
-    .brand-logo img {
-      width: 30px;
-      margin-right: 10px;
-    }
-  </style>
-</head>
+@extends('layout.app')
 
-<body class="bg-theme bg-theme1">
-<div id="wrapper">
+@section('title', 'Dashboard Utama')
 
-  <div id="sidebar-wrapper">
-    <div class="brand-logo text-center">
-      <a href="{{ route('dashboard') }}">
-        <img src="{{ asset('assets/images/logo-icon.png') }}" alt="logo icon">
-        <h5 class="logo-text">SISTEM BOOKING</h5>
-      </a>
+@section('content')
+<div class="row mt-3">
+    <div class="col-12">
+        <h4 class="text-white mb-3">Selamat Datang, {{ auth()->user()->name }}!</h4>
+        <div class="card bg-transparent border-light shadow-none">
+            <div class="card-body p-0">
+                <div class="d-flex flex-wrap gap-3">
+                    <a href="{{ url('/booking') }}" class="btn btn-light btn-round px-4 m-1">
+                        <i class="zmdi zmdi-calendar-check mr-2"></i> Lihat Booking
+                    </a>
+
+                    @if(in_array(auth()->user()->role, ['superadmin', 'staff']))
+                    <a href="{{ url('/alat') }}" class="btn btn-outline-white btn-round px-4 m-1">
+                        <i class="zmdi zmdi-wrench mr-2"></i> Kelola Alat
+                    </a>
+                    @endif
+
+                    @if(auth()->user()->role == 'superadmin')
+                    <a href="{{ url('/user') }}" class="btn btn-warning btn-round px-4 m-1 text-dark">
+                        <i class="zmdi zmdi-accounts-list mr-2"></i> Manajemen User
+                    </a>
+                    @endif
+
+                    <a href="{{ route('logout') }}" 
+                       class="btn btn-danger btn-round px-4 m-1"
+                       onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        <i class="zmdi zmdi-power mr-2"></i> Keluar
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
-    
-    <ul class="sidebar-menu">
-      <li class="sidebar-header">MENU</li>
-      
-      <li>
-        <a href="{{ route('dashboard') }}">
-          <i class="zmdi zmdi-view-dashboard"></i> <span>Dashboard</span>
-        </a>
-      </li>
-
-      @auth
-        {{-- Menu Alat: Hanya Superadmin/Staff --}}
-        @if(Auth::user()->role === 'superadmin' || Auth::user()->role === 'staff')
-          <li>
-            <a href="{{ route('alat.index') }}">
-              <i class="zmdi zmdi-invert-colors"></i> <span>Alat</span>
-            </a>
-          </li>
-        @endif
-
-        {{-- Menu Booking: Semua Role --}}
-        <li>
-          <a href="{{ route('booking.index') }}">
-            <i class="zmdi zmdi-calendar-check"></i> <span>Booking</span>
-          </a>
-        </li>
-
-        {{-- Menu User: Hanya Superadmin --}}
-        @if(Auth::user()->role === 'superadmin')
-          <li>
-            <a href="{{ route('user.index') }}">
-              <i class="zmdi zmdi-accounts"></i> <span>User</span>
-            </a>
-          </li>
-        @endif
-
-        <li class="logout-item">
-          <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-            <i class="zmdi zmdi-power"></i> <span>Logout</span>
-          </a>
-        </li>
-        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">@csrf</form>
-      @endauth
-    </ul>
-  </div>
-  <header class="topbar-nav">
-    <nav class="navbar navbar-expand fixed-top">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item"><a class="nav-link toggle-menu"><i class="icon-menu"></i></a></li>
-      </ul>
-      <ul class="navbar-nav align-items-center right-nav-link">
-        <li class="nav-item">
-          <a class="nav-link dropdown-toggle-nocaret" data-toggle="dropdown" href="#">
-            <span class="user-profile"><i class="zmdi zmdi-account-circle" style="font-size:30px;"></i></span>
-          </a>
-        </li>
-      </ul>
-    </nav>
-  </header>
-
-  <div class="content-wrapper">
-    <div class="container-fluid">
-      
-      <h4 class="text-white mt-3">Selamat datang, {{ Auth::user()->name }}</h4>
-
-      <div class="row mt-4">
-        <div class="col-12 col-lg-6">
-          <div class="card bg-theme bg-theme9 border-0">
-            <div class="card-body">
-              <h5 class="text-white mb-0">{{ $totalAlat }} <span class="float-right"><i class="zmdi zmdi-shopping-cart"></i></span></h5>
-              <div class="progress my-3" style="height:3px;">
-                <div class="progress-bar" style="width:100%"></div>
-              </div>
-              <p class="mb-0 text-white small-font">Total Alat</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-lg-6">
-          <div class="card bg-theme bg-theme11 border-0">
-            <div class="card-body">
-              <h5 class="text-white mb-0">{{ $totalBooking }} <span class="float-right"><i class="zmdi zmdi-calendar"></i></span></h5>
-              <div class="progress my-3" style="height:3px;">
-                <div class="progress-bar" style="width:100%"></div>
-              </div>
-              <p class="mb-0 text-white small-font">Total Booking</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="row mt-4">
-        <div class="col-12">
-          <div class="card bg-transparent border-0 shadow-none">
-            <div class="card-header bg-transparent border-0">
-              <h6 class="text-white">Daftar Booking Terbaru</h6>
-            </div>
-            <div class="table-responsive">
-              <table class="table align-items-center table-flush table-borderless text-white" style="background: rgba(255,255,255,0.05); border-radius: 10px;">
-                <thead>
-                  <tr style="background: rgba(255,255,255,0.1);">
-                    <th>NO</th>
-                    <th>NAMA ALAT</th>
-                    <th>PENYEWA</th>
-                    <th>TANGGAL SEWA</th>
-                    <th>TANGGAL KEMBALI</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  @forelse($bookingList as $key => $booking)
-                  <tr>
-                    <td>{{ $key + 1 }}</td>
-                    <td>{{ $booking->nama_alat }}</td>
-                    <td>{{ $booking->nama }}</td>
-                    <td>{{ $booking->tanggal_sewa }}</td>
-                    <td>{{ $booking->tanggal_kembali }}</td>
-                  </tr>
-                  @empty
-                  <tr>
-                    <td colspan="5" class="text-center">Belum ada data booking.</td>
-                  </tr>
-                  @endforelse
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
 </div>
 
-<script src="{{ asset('assets/js/jquery.min.js') }}"></script>
-<script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
-<script src="{{ asset('assets/js/sidebar-menu.js') }}"></script>
-</body>
-</html>
+<hr class="border-light">
+
+<div class="row">
+    <div class="col-12 col-lg-6 col-xl-4">
+        <div class="card bg-theme bg-theme9 gradient-ohman border-0 shadow-sm">
+            <div class="card-body">
+                <h5 class="text-white mb-0">{{ $totalAlat }} <span class="float-right"><i class="zmdi zmdi-settings"></i></span></h5>
+                <div class="progress my-3" style="height:3px;"><div class="progress-bar" style="width:100%"></div></div>
+                <p class="mb-0 text-white small-font">Total Koleksi Alat</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-lg-6 col-xl-4">
+        <div class="card bg-theme bg-theme11 gradient-ibiza border-0 shadow-sm">
+            <div class="card-body">
+                <h5 class="text-white mb-0">{{ $totalBooking }} <span class="float-right"><i class="zmdi zmdi-shopping-cart"></i></span></h5>
+                <div class="progress my-3" style="height:3px;"><div class="progress-bar" style="width:100%"></div></div>
+                <p class="mb-0 text-white small-font">Transaksi Booking</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-lg-6 col-xl-4">
+        <div class="card bg-theme bg-theme14 gradient-scooter border-0 shadow-sm">
+            <div class="card-body">
+                <h5 class="text-white mb-0">{{ $totalUser ?? 0 }} <span class="float-right"><i class="zmdi zmdi-accounts-alt"></i></span></h5>
+                <div class="progress my-3" style="height:3px;"><div class="progress-bar" style="width:100%"></div></div>
+                <p class="mb-0 text-white small-font">Total User</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12 col-lg-8">
+        <div class="card bg-theme bg-theme1 shadow-sm border-light">
+            <div class="card-header border-0">Aktivitas Penyewaan Alat</div>
+            <div class="card-body">
+                <div class="chart-container-1">
+                    <canvas id="bookingChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 col-lg-4">
+        <div class="card bg-theme bg-theme1 shadow-sm border-light">
+            <div class="card-header border-0">Booking Terbaru</div>
+            <div class="table-responsive">
+                <table class="table align-items-center table-flush">
+                    <thead>
+                        <tr>
+                            <th>Peminjam</th>
+                            <th>Alat</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($bookingList as $b)
+                        <tr>
+                            <td>{{ $b->nama }}</td>
+                            <td><span class="badge badge-outline-light badge-pill">{{ $b->nama_alat }}</span></td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">@csrf</form>
+@endsection
+
+@push('js')
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    $(function() {
+        var ctx = document.getElementById('bookingChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: @json($labels), // Data Bulan dari Controller
+                datasets: [{
+                    label: 'Jumlah Booking',
+                    data: @json($data), // Data Angka dari Controller
+                    borderColor: '#ffffff',
+                    backgroundColor: 'rgba(255, 255, 255, 0.14)',
+                    borderWidth: 3,
+                    fill: true,
+                    tension: 0.4,
+                    pointRadius: 4,
+                    pointBackgroundColor: '#ffffff'
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                scales: {
+                    y: { 
+                        beginAtZero: true,
+                        ticks: { color: '#ffffff' },
+                        grid: { color: 'rgba(255,255,255,0.1)' }
+                    },
+                    x: { 
+                        ticks: { color: '#ffffff' },
+                        grid: { display: false }
+                    }
+                },
+                plugins: {
+                    legend: { display: false }
+                }
+            }
+        });
+    });
+</script>
+@endpush
