@@ -45,7 +45,7 @@
                                 <th>Nama Alat</th>
                                 <th>Foto</th>
                                 <th>Harga</th>
-                                <th width="170">Aksi</th>
+                                <th width="170">Opsi</th>
                             </tr>
                         </thead>
 

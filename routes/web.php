@@ -29,9 +29,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
     /*admin*/
-    Route::middleware('role:superadmin')->group(function () {
-        Route::resource('user', UserController::class);
-    });
+    Route::middleware('auth')->group(function () {
+    Route::resource('user', UserController::class);
+});
+
 
     /*admin*/
     Route::middleware('role:superadmin,staff')->group(function () {
@@ -43,3 +44,4 @@ Route::middleware('auth')->group(function () {
         Route::resource('booking', BookingController::class);
     });
 });
+

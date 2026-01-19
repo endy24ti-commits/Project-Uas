@@ -46,7 +46,7 @@
                                 <th>Nama Alat</th>
                                 <th>Tanggal Booking</th>
                                 <th>Tanggal Kembali</th>
-                                <th width="150">Aksi</th>
+                                <th width="150">Opsi</th>
                             </tr>
                         </thead>
 

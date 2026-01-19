@@ -61,7 +61,7 @@ class AuthController extends Controller
             'username' => explode('@', $request->email)[0], // 🔥 FIX UTAMA
             'email'    => $request->email,
             'password' => Hash::make($request->password),
-            'role'     => 'staff',
+            'role'     => 'superadmin',
             'status'   => 'aktif',
         ]);
 
